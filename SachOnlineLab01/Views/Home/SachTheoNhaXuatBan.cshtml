@@ -1,0 +1,31 @@
+﻿@model IEnumerable<SachOnlineLab01.Models.SACH>
+@{
+    ViewBag.Title = "SachTheoNhaXuatBan";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+﻿
+
+<h2 class="text-center"> SÁCH THEO NHÀ XUẤT BẢN</h2>
+<hr>
+<div class="row text-center">
+    @foreach (var sach in Model)
+    {
+        <div class="col-sm-4 col-md-4 col-lg-4 col-xs-6">
+            <div class="thumbnail">
+                <img src="~/Images/KT0001.jpg" alt="@sach.TenSach" class="img-responsive img-rounded imgbook">
+                <div class="caption">
+                    <h4 style="min-height:70px;">
+                        <a href="@Url.Action("ChiTietSach","Home", new { id = sach.MaSach})"> @sach.TenSach</a>
+                    </h4>
+                </div>
+                <p>
+                    <a href="@Url.Action("ThemGioHang", "GioHang", new {ms = sach.MaSach, url= @Request.Url.ToString()})" class="btn btn-primary" role="button">
+                        <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+                        Add to Cart
+                    </a>
+                </p>
+            </div>
+        </div>
+    }
+</div>

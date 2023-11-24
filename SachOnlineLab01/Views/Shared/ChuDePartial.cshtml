@@ -1,0 +1,14 @@
+﻿@model IEnumerable<SachOnlineLab01.Models.CHUDE>
+
+
+<ul class="list-group">
+    <li class="list-group-item active" style="font-weight:bold; text-align:center">SÁCH THEO CHỦ ĐỀ</li>
+    @foreach (var item in Model)
+    {
+        
+            <a href="@Url.Action("SachTheoChuDe","Home", new { id = item.MaCD})" class="list-group-item" style="width: 100%; display: block; cursor: pointer;">@item.TenChuDe</a>
+       
+
+    }
+</ul>
+<br />
