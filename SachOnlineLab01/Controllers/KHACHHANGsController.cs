@@ -255,6 +255,13 @@ namespace SachOnlineLab01.Controllers
             return View("DangNhap");
         }
 
+        [HttpGet]
+        public ActionResult DangXuat()
+        {
+            Session["TaiKhoan"] = null;
+            return RedirectToAction("Index", "Home");
+        }
+
     }
 
 }

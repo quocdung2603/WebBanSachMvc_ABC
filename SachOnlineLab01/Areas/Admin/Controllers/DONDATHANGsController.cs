@@ -18,11 +18,16 @@ namespace SachOnlineLab01.Areas.Admin.Controllers
         // GET: Admin/DONDATHANGs
         public ActionResult Index(int? page)
         {
-
-            int iPageNum = (page ?? 1);
-            int iPageSize = 7;
-
-            return View(db.DONDATHANGs.ToList().OrderBy(n => n.MaDonHang).ToPagedList(iPageNum, iPageSize));
+            if (Session["Admin"] != null)
+            {
+                int iPageNum = (page ?? 1);
+                int iPageSize = 7;
+                return View(db.DONDATHANGs.ToList().OrderBy(n => n.MaDonHang).ToPagedList(iPageNum, iPageSize));
+            }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
         }
         // GET: Admin/DONDATHANGs/Details/5
         public ActionResult Details(int? id)

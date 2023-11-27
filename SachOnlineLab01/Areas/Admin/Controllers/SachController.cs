@@ -16,11 +16,16 @@ namespace SachOnlineLab01.Areas.Admin.Controllers
         // GET: Admin/Sach
         public ActionResult Index(int? page)
         {
-
-            int iPageNum = (page ?? 1);
-            int iPageSize = 7;
-
-            return View(db.SACHes.ToList().OrderBy(n => n.MaSach).ToPagedList(iPageNum, iPageSize));
+            if (Session["Admin"] != null)
+            {
+                int iPageNum = (page ?? 1);
+                int iPageSize = 7;
+                return View(db.SACHes.ToList().OrderBy(n => n.MaSach).ToPagedList(iPageNum, iPageSize));
+            }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
         }
 
         [HttpGet]

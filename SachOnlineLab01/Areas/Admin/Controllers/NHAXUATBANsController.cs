@@ -16,9 +16,16 @@ namespace SachOnlineLab01.Areas.Admin.Controllers
         SachOnlineEntities db = new SachOnlineEntities();
         public ActionResult Index(int? page)
         {
-            int iPageNum = (page ?? 1);
-            int iPageSize = 7;
-            return View(db.NHAXUATBANs.ToList().OrderBy(n => n.MaNXB).ToPagedList(iPageNum, iPageSize));
+            if (Session["Admin"] != null)
+            {
+                int iPageNum = (page ?? 1);
+                int iPageSize = 7;
+                return View(db.NHAXUATBANs.ToList().OrderBy(n => n.MaNXB).ToPagedList(iPageNum, iPageSize));
+            }
+            else
+            {
+                return RedirectToAction("Login" , "Home");
+            }
         }
         [HttpGet]
         public ActionResult Create()

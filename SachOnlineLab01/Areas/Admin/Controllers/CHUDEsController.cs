@@ -16,9 +16,16 @@ namespace SachOnlineLab01.Areas.Admin.Controllers
         // GET: Admin/ChuDe
         public ActionResult Index(int? page)
         {
-            int iPageNum = (page ?? 1);
-            int iPageSize = 7;
-            return View(db.CHUDEs.ToList().OrderBy(n => n.MaCD).ToPagedList(iPageNum, iPageSize));
+            if (Session["Admin"] != null)
+            {
+                int iPageNum = (page ?? 1);
+                int iPageSize = 7;
+                return View(db.CHUDEs.ToList().OrderBy(n => n.MaCD).ToPagedList(iPageNum, iPageSize));
+            }
+            else
+            {
+                return RedirectToAction("Login" , "Home");
+            }
         }
         [HttpGet]
         public ActionResult Create()
@@ -81,8 +88,8 @@ namespace SachOnlineLab01.Areas.Admin.Controllers
             var sach = db.SACHes.Where(s => s.MaCD == id);
             if (sach.Count() > 0)
             {
-                ViewBag.ThongBao = "Chủ đề này đang có trong bảng Sách <br> " + " Nếu muốn xóa thì phải xóa hết sách có mã chủ đề này trong bảng Sách";
-                return View(sach);
+                ViewBag.ThongBao = "Chủ đề này đang có trong bảng Sách." + " Nếu muốn xóa thì phải xóa hết sách có mã chủ đề này trong bảng Sách";
+                return View(chude);
             }
             db.CHUDEs.Remove(chude);
             db.SaveChanges();

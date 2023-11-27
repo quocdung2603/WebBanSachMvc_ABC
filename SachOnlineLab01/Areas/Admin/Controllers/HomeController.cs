@@ -10,13 +10,17 @@ namespace SachOnlineLab01.Areas.Admin.Controllers
     {
 
         SachOnlineEntities db = new SachOnlineEntities();
-
-
-
         // GET: Admin/Home
         public ActionResult Index()
         {
-            return View();
+            if(Session["Admin"] != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login");
+            }
         }
         [HttpGet]
         public ActionResult Login()
@@ -35,7 +39,7 @@ namespace SachOnlineLab01.Areas.Admin.Controllers
             if(ad != null)
             {
                 Session["Admin"] = ad;
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index");
             } else
             {
                 ViewBag.ThongBao = "Tên đăng nhập hoặc mật khẩu không đúng";
